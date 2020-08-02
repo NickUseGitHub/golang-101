@@ -1,0 +1,15 @@
+{
+  "name": "golang-101",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -w main.go -w app/*.go -w app/**/*.go --exec go run main.go"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
