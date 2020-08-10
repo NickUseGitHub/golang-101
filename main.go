@@ -4,17 +4,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
 
 func main() {
-	port := 8080
+	os.Setenv("PORT", "8080")
+	port := os.Getenv("PORT")
 	r := mux.NewRouter()
 	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(map[string]string{"Hello": "World"})
 	})
 
-	fmt.Printf("App listen on port %d", port)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), r)
+	fmt.Printf("App listen on port %s", port)
+	http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 }
