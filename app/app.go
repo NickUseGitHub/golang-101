@@ -5,19 +5,41 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+
 	"github.com/NickUseGitHub/golang-101/configs"
 	"github.com/gorilla/mux"
 )
 
 // App struct type
 type App struct {
-	Router *mux.Router
+	Router  *mux.Router
+	DB      *gorm.DB
+	configs configs.Configs
 }
 
 // Initialize app
-func (a *App) Initialize() {
+func (a *App) Initialize(configs configs.Configs) {
+	a.configs = configs.Initialize()
+
+	db, err := a.initialDB(a.configs)
+	if err != nil {
+		fmt.Println(err)
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	a.DB = db
+
 	a.Router = mux.NewRouter()
 	a.setRouters()
+}
+
+func (a *App) initialDB(cnfs configs.Configs) (*gorm.DB, error) {
+	str := cnfs.GetDbConfigConnection(cnfs)
+	fmt.Println(str)
+	return gorm.Open("postgres", str)
 }
 
 func (a *App) setRouters() {
@@ -32,8 +54,8 @@ func (a *App) Get(path string, handleFn func(w http.ResponseWriter, r *http.Requ
 }
 
 // Run with it's own port
-func (a *App) Run(configs configs.Configs) {
-	port := configs.GetPort()
+func (a *App) Run() {
+	port := a.configs.GetPort()
 	fmt.Printf(fmt.Sprintf("App listen on port: %s", port))
 	http.ListenAndServe(fmt.Sprintf(":%s", port), a.Router)
 }
