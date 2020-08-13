@@ -27,8 +27,9 @@ func (a *App) Initialize(configs configs.Configs) {
 	db, err := a.initialDB(a.configs)
 	if err != nil {
 		fmt.Println(err)
-		panic("failed to connect database")
+		panic("[x]:: failed to connect database")
 	}
+	fmt.Println("[√]:: DB Connected")
 	defer db.Close()
 
 	a.DB = db
@@ -42,13 +43,13 @@ func (a *App) initialDB(cnfs configs.Configs) (*gorm.DB, error) {
 }
 
 func (a *App) setRouters() {
-	a.Get("/", func(w http.ResponseWriter, r *http.Request) {
+	a.assignMethodGet("/", func(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(map[string]string{"Hello": "World"})
 	})
 }
 
 // Get http method for APP
-func (a *App) Get(path string, handleFn func(w http.ResponseWriter, r *http.Request)) {
+func (a *App) assignMethodGet(path string, handleFn func(w http.ResponseWriter, r *http.Request)) {
 	a.Router.HandleFunc(path, handleFn).Methods("GET")
 }
 
