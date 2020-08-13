@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/jinzhu/gorm"
+	// Register for connection to postgres
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 
 	"github.com/NickUseGitHub/golang-101/configs"
