@@ -37,9 +37,7 @@ func (a *App) Initialize(configs configs.Configs) {
 }
 
 func (a *App) initialDB(cnfs configs.Configs) (*gorm.DB, error) {
-	str := cnfs.GetDbConfigConnection(cnfs)
-	fmt.Println(str)
-	return gorm.Open("postgres", str)
+	return gorm.Open("postgres", cnfs.GetDbConfigConnection(cnfs))
 }
 
 func (a *App) setRouters() {
