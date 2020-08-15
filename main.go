@@ -9,5 +9,7 @@ import (
 func main() {
 	apiApp := &app.App{}
 	apiApp.Initialize((configs.Configs{}).Initialize())
+	defer apiApp.CloseDB()
+
 	apiApp.Run()
 }

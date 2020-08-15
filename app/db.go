@@ -5,7 +5,10 @@ import (
 
 	"github.com/NickUseGitHub/golang-101/app/models"
 	"github.com/NickUseGitHub/golang-101/configs"
+
 	"github.com/jinzhu/gorm"
+	// Register for connection to postgres
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 // DBApp for initial DB App
