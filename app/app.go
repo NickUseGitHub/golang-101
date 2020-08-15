@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/jinzhu/gorm"
 	// Register for connection to postgres
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 
@@ -16,7 +15,6 @@ import (
 // App struct type
 type App struct {
 	Router  *mux.Router
-	DB      *gorm.DB
 	configs configs.Configs
 }
 
@@ -24,22 +22,16 @@ type App struct {
 func (a *App) Initialize(configs configs.Configs) {
 	a.configs = configs.Initialize()
 
-	db, err := a.initialDB(a.configs)
+	dbApp := &DBApp{}
+	err := dbApp.InitializeDB(a.configs)
 	if err != nil {
 		fmt.Println(err)
 		panic("[x]:: failed to connect database")
 	}
-	fmt.Println("[√]:: DB Connected")
-	defer db.Close()
-
-	a.DB = db
+	defer dbApp.DB.Close()
 
 	a.Router = mux.NewRouter()
 	a.setRouters()
-}
-
-func (a *App) initialDB(cnfs configs.Configs) (*gorm.DB, error) {
-	return gorm.Open("postgres", cnfs.GetDbConfigConnection(cnfs))
 }
 
 func (a *App) setRouters() {
