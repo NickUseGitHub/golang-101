@@ -8,6 +8,8 @@ import (
 
 func main() {
 	apiApp := &app.App{}
-	apiApp.Initialize()
-	apiApp.Run((configs.Configs{}).Initialize())
+	apiApp.Initialize((configs.Configs{}).Initialize())
+	defer apiApp.CloseDB()
+
+	apiApp.Run()
 }
