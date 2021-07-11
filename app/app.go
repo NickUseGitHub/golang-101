@@ -38,8 +38,9 @@ func (a *App) Initialize(configs configs.Configs) {
 }
 
 func (a *App) setRouters() {
-	a.assignMethodGet("/", a.bindingHandleFunc(routes.HomeIndex))
 	a.assignMethodPut("/todo", a.bindingHandleFunc(routes.TodoCreate))
+	a.assignMethodGet("/todo", a.bindingHandleFunc(routes.TodoGetList))
+	a.assignMethodGet("/", a.bindingHandleFunc(routes.HomeIndex))
 }
 
 // Get http method for APP

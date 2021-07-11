@@ -26,3 +26,13 @@ func TodoCreate(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 	w.Write([]byte(utils.ToJSON(todo)))
 }
+
+// TodoGetList
+func TodoGetList(db *gorm.DB, w http.ResponseWriter, _ *http.Request) {
+	todos := []models.Todo{}
+
+	db.Where("name is not null").Find(&todos)
+
+	w.WriteHeader(200)
+	w.Write([]byte(utils.ToJSON(todos)))
+}

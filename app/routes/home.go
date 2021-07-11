@@ -9,5 +9,5 @@ import (
 
 // HomeIndex of app
 func HomeIndex(_ *gorm.DB, w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(map[string]string{"Hello": "World"})
+	json.NewEncoder(w).Encode(map[string]string{"Hello": "Wordddld"})
 }
