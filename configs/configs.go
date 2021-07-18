@@ -92,7 +92,5 @@ func (c Configs) GetDbConfigConnection(configParam Configs) string {
 		return strings.Join(strList[:], " ")
 	}()
 
-	fmt.Println(singleStr)
-
 	return singleStr
 }
