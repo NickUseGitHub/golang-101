@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 // Configs struct
@@ -15,6 +17,14 @@ type Configs struct {
 	dbUsername string
 	dbPassword string
 	dbSslmode  string
+}
+
+// load ENV from .env
+func (c Configs) LoadEnvFromFile() {
+	err := godotenv.Load()
+  if err != nil {
+    fmt.Println("Error loading .env file")
+  }
 }
 
 // Initialize to init values from envs
@@ -81,6 +91,8 @@ func (c Configs) GetDbConfigConnection(configParam Configs) string {
 
 		return strings.Join(strList[:], " ")
 	}()
+
+	fmt.Println(singleStr)
 
 	return singleStr
 }

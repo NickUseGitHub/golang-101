@@ -24,6 +24,8 @@ type WrappedHandleFunc func(db *gorm.DB, w http.ResponseWriter, r *http.Request)
 
 // Initialize app
 func (a *App) Initialize(configs configs.Configs) {
+	configs.LoadEnvFromFile()
+
 	a.configs = configs.Initialize()
 
 	a.DBApp = &DBApp{}
