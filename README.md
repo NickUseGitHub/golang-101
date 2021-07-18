@@ -1,0 +1,1 @@
+# GOLANG for dockerizing and deploy on PAAS such as AWS

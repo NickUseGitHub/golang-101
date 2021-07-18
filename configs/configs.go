@@ -35,6 +35,8 @@ func (c Configs) Initialize() Configs {
 	c.dbPassword = os.Getenv("DB_PASSWORD")
 	c.dbSslmode = os.Getenv("DB_SSL_MODE")
 
+	fmt.Println(c.dbHost)
+
 	return c
 }
 
