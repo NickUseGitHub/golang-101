@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -w main.go -w app/*.go -w app/**/*.go --exec go run main.go"
+    "go:fmt": "gofmt -w app",
+    "go:dev": "go run main.go",
+    "go-watch:dev": "nodemon -e go --watch app --exec 'yarn go:fmt && yarn go:dev'"
   },
   "keywords": [],
   "author": "",
