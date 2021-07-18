@@ -19,23 +19,40 @@ type Configs struct {
 
 // Initialize to init values from envs
 func (c Configs) Initialize() Configs {
-	os.Setenv("PORT", "8080")
-	os.Setenv("DB_HOST", "localhost")
-	os.Setenv("DB_PORT", "5432")
-	os.Setenv("DB_NAME", "todo")
-	os.Setenv("DB_USERNAME", "postgres")
-	os.Setenv("DB_PASSWORD", "postgres")
-	os.Setenv("DB_SSL_MODE", "disable")
+	c.port = "8080"
+	if os.Getenv("PORT") != "" {
+		c.port = os.Getenv("PORT")
+	}
 
-	c.port = os.Getenv("PORT")
-	c.dbHost = os.Getenv("DB_HOST")
-	c.dbPort = os.Getenv("DB_PORT")
-	c.dbName = os.Getenv("DB_NAME")
-	c.dbUsername = os.Getenv("DB_USERNAME")
-	c.dbPassword = os.Getenv("DB_PASSWORD")
-	c.dbSslmode = os.Getenv("DB_SSL_MODE")
+	c.dbHost = "localhost"
+	if os.Getenv("DB_HOST") != "" {
+		c.dbHost = os.Getenv("DB_HOST")
+	}
 
-	fmt.Println(c.dbHost)
+	c.dbPort = "5432"
+	if os.Getenv("DB_PORT") != "" {
+		c.dbPort = os.Getenv("DB_PORT")
+	}
+
+	c.dbName = "todo"
+	if os.Getenv("DB_NAME") != "" {
+		c.dbName = os.Getenv("DB_NAME")
+	}
+
+	c.dbUsername = "postgres"
+	if os.Getenv("DB_USERNAME") != "" {
+		c.dbUsername = os.Getenv("DB_USERNAME")
+	}
+
+	c.dbPassword = "postgres"
+	if os.Getenv("DB_PASSWORD") != "" {
+		c.dbPassword = os.Getenv("DB_PASSWORD")
+	}
+
+	c.dbSslmode = "disable"
+	if os.Getenv("DB_SSL_MODE") != "" {
+		c.dbSslmode = os.Getenv("DB_SSL_MODE")
+	}
 
 	return c
 }
